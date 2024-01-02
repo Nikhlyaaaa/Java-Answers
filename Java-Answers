@@ -1,0 +1,145 @@
+Question No -1:-
+1.	Created an entity class and added all the fields:-
+
+@Entity
+@AllArgsConstructor
+@NoArgsConstructor	
+@Table(name=”LEAD”)
+Public class Lead{
+
+@Id
+@GeneratedValue(strategy=GenarationType=Auto)
+private int id;
+
+@NotEmpty(message=”this is required field”)
+private String firstName;
+
+private String middleName;
+
+@NotEmpty(message=”this is required field”)
+private String lastName;
+
+@NotEmpty(message=”this is required field”)
+private int mobNo;
+
+@NotEmpty(message=”this is required field”)
+private String gender;
+
+@NotEmpty(message=”this is required field”)
+private int dob;
+
+private string email;
+
+}
+
+**************************************************************************
+
+2.	Create an interface called leadRepository which extends JPA repository
+
+public interface leadRepository extends JPARepository<Lead lead>{
+}
+
+
+
+****************************************************************************
+3.	Create a service to have all the crud operations:-
+
+
+
+@Service
+public class LeadService{
+
+@Autowired
+private leadRepository repository;
+
+// save method
+Public Lead saveLead(Lead lead)
+{
+
+If(!leadRepo.getLeadById(lead.getlead())
+{
+ return leadRepository.save()
+}else
+System.out.println(“Lead already Exist);
+}
+
+}
+
+*********************************************************
+
+4.	Creating controller to execute these operations:-
+
+@RestController
+public class leadController{
+
+@Autowired
+Private leadService service;
+
+@PostMapping(“/addLead”)
+public Lead addLead(@RequestBody Lead lead){
+return service. saveLead(Lead);
+}
+
+
+=======================================================================================================
+
+Question No 2:-
+
+Step1:- Created a service and added validation:-
+
+
+@Service
+public class LeadService{
+
+@Autowired
+private leadRepository repository;
+
+// save method
+Public Lead saveLead(Lead lead){
+ return leadRepository.save();
+
+// getMethod (custom method)
+
+Public Lead getLeadByMob(int mobNo){
+ return leadRepository.findByMob(mobNo);
+}
+
+
+
+}
+Step 2:- As this is the custom method, we have to add it in the repository interface
+
+public interface leadRepository extends JPARepository<Lead lead>{
+
+Lead findByMob(mobNo);
+
+}
+
+Step 3:- Add getMapping in the controller
+
+
+@RestController
+public class leadController{
+
+@Autowired
+Private leadService service;
+
+@PostMapping(“/addLead”)
+public Lead addLead(@RequestBody Lead lead){
+return service. saveLead(Lead);
+
+@GetMapping(“/lead”)
+public Lead findByMob(int mobNo){
+return service. getLeadByMob(int mobNo)
+
+}
+
+
+
+
+
+
+
+
+
+
